@@ -22,5 +22,7 @@ public class SubmitButton : MonoBehaviour {
 				Application.Quit();
 			}
 		}
+
+
 	}
 }
