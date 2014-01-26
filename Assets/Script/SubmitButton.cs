@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class submitButton : MonoBehaviour {
+public class SubmitButton : MonoBehaviour {
 
 	public Texture btnTexture;
 	void OnGUI() {
