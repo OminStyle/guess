@@ -79,6 +79,10 @@ public class Timer : MonoBehaviour {
 	public void ResetTimer() {
 		timerStarted = false;
 		currentTimerValue = startTimerValue;
+
+		int timeInInt = (Mathf.FloorToInt (currentTimerValue)) ;
+		string timerText = GetMinuteFromTotalTime(timeInInt) + ":" + GetSecondFromTotalTime(timeInInt);
+		timerGUI.text = timerText;
 	}
 
 	public void ResetJinxedTimer() {

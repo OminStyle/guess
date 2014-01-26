@@ -15,12 +15,15 @@ public class StateManager: MonoBehaviour{
 
 	public GameObject p1Obj;
 	public GameObject p2Obj;
+	public GameObject popupObj;
+	private PopupController pc;
 
 	void Start() {
 		tm = GameObject.Find ("CountdownTimer").GetComponent<Timer>();
 		if (tm == null) {
 			Debug.Log ("timer is unassigned in StateManager");
 		}
+		pc = popupObj.GetComponent<PopupController>();
 		clicked = false;
 		StartGame ();
 	}
@@ -28,6 +31,13 @@ public class StateManager: MonoBehaviour{
 	void Update() {
 		GUIText stateTxt = this.transform.FindChild("state").GetComponent<GUIText>();
 		stateTxt.text = "playerTurn: "+playerTurn+" playerJinxed: "+playerJinxed;
+
+		if (pc.IsPopupShowing()) {
+			if (Input.anyKeyDown) {
+				pc.HidePopup();
+				tm.StartTimer ();
+			}
+		}
 	}
 	
 	public void StartGame() {
@@ -54,7 +64,8 @@ public class StateManager: MonoBehaviour{
 			if (playerJinxed == 0) {	// no one is jinxed, everything is normal
 				playerTurn = 2;
 				tm.ResetTimer();
-				tm.StartTimer();
+				pc.ShowPopup(1, false);
+				//tm.StartTimer();
 			}
 			else if (playerJinxed == 1){
 				playerTurn = 2;
@@ -66,7 +77,8 @@ public class StateManager: MonoBehaviour{
 			if (playerJinxed == 0) {	// no one is jinxed, everything is normal
 				playerTurn = 1;
 				tm.ResetTimer();
-				tm.StartTimer();
+				pc.ShowPopup(1, false);
+				//tm.StartTimer();
 			}
 			else if (playerJinxed == 2){
 				playerTurn = 1;
@@ -95,25 +107,30 @@ public class StateManager: MonoBehaviour{
 		}
 		else {
 			if (player == 0) {
+				pc.ShowPopup (4, false);
 				UnjinxPlayer();
 			}
 			else if (player == 1) {
 				// It should be player 1's turn
 				if (playerTurn == 1) {
+					pc.ShowPopup (2, false);
 					JinxPlayer(1);
 				}
+				/* Never gonna be here
 				else if (playerTurn == 2) {
 					JinxPlayer(2);
-				}
+				}*/
 			}
 			else if (player == 2) {
 				// It should be player 1's turn
 				if (playerTurn == 2) {
+					pc.ShowPopup (2, false);
 					JinxPlayer(2);
 				}
+				/* Never gonna be here
 				else if (playerTurn == 1) {
 					JinxPlayer(1);
-				}
+				}*/
 			}
 			
 		}

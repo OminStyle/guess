@@ -19,7 +19,7 @@ public class PlayerDisplay : MonoBehaviour {
 		if (StateManager.playerJinxed != 0) {
 			text += "Player "+StateManager.playerJinxed+" is jinxed.";
 		}
-		GUI.Label (new Rect (600, 300, 100, 100), text);
+		GUI.Label (new Rect (750, 50, 100, 100), text);
 	}
 
 
