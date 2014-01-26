@@ -9,15 +9,25 @@ public class StateManager: MonoBehaviour{
 	
 	public static int playerTurn;	// either 1 or 2. DO NOT ASSIGN ANY OTHER VALUE TO IT
 	public static int playerJinxed;	// 0, 1 or 2. 0 means no player is Jinxed, 1 means player 1 is, 2 means player 2 is.
-	
+
+	public static Timer tm;
+
 	void Start() {
-		playerTurn = 1;
-		playerJinxed = 0;
+		tm = GameObject.Find ("CountdownTimer").GetComponent<Timer>();
+		if (tm == null) {
+			Debug.Log ("timer is unassigned in StateManager");
+		}
+		StartGame ();
 	}
 	
 	void Update() {
 	}
-	
+
+	public void StartGame() {
+		playerTurn = 1;
+		playerJinxed = 0;
+		tm.StartTimer();
+	}
 	
 	public static int GetPlayerTurn() {
 		return playerTurn;
@@ -28,13 +38,20 @@ public class StateManager: MonoBehaviour{
 	}
 	
 	public static void UpdatePlayerTurn() {
+		Debug.Log ("Switching Turn");
 		if (playerTurn != 1 && playerTurn != 2) {
 			return;
 		}
 		else if(playerTurn == 1){
+			Debug.Log ("Switching Turn");
 			playerTurn = 2;
+			tm.ResetTimer();
+			tm.StartTimer();
 		} else {
+			Debug.Log ("Switching Turn");
 			playerTurn = 1;
+			tm.ResetTimer();
+			tm.StartTimer();
 		}
 	}
 	
