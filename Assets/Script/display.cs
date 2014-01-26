@@ -3,7 +3,7 @@ using System.Collections;
 
 public class display : MonoBehaviour {
 	public string[] myGuesses;
-	private  string guess = "guess";
+	//private  string guess = "guess";
 	private  string guess2 = "car";
 	private  string guess3 = "flight";
 	private  string guess4 = "train";
@@ -13,7 +13,8 @@ public class display : MonoBehaviour {
 	void OnGUI()
 	{
 		myGuesses = new string[5];
-		myGuesses[0]=guess;
+		//myGuesses[0]=guess;
+		myGuesses[0] = RandomizeTexture.answer;
 		myGuesses[1]=guess2;
 		myGuesses[2]=guess3;
 		myGuesses[3]=guess4;
