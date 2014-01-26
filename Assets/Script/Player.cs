@@ -5,8 +5,6 @@ public class Player : MonoBehaviour {
 
 	public int playerID;
 	private ArrayList myAnswers;
-	bool clicked;
-
 
 	void Start() {
 		myAnswers = new ArrayList ();
@@ -20,7 +18,10 @@ public class Player : MonoBehaviour {
 		playerID = id;
 		myAnswers = new ArrayList ();
 	}
-	
+
+	public ArrayList getMyAnswers() {
+		return myAnswers;
+	}
 
 	public void storeAnswer(string myCurrentAnswer){
 		myAnswers.Add (myCurrentAnswer);

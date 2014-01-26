@@ -60,7 +60,6 @@ public class SubmitButton : MonoBehaviour {
 					else {
 						// OMG game is horribly broken
 					}
-					display.myAnswers.Add(myAnswer);
 				}
 			}
 			else if (StateManager.GetPlayerJinxed() == 1) {

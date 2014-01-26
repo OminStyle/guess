@@ -12,7 +12,7 @@ public class AddLight : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(0) && !StateManager.click()) {
 			Vector3 clickPosition = Input.mousePosition;
 			Debug.Log(clickPosition.x + " " + clickPosition.y + " " + clickPosition.z);
 			if(clickPosition.x > 90 && clickPosition.x < 592 &&
