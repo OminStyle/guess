@@ -6,6 +6,7 @@ public class AddLight : MonoBehaviour {
 	public GameObject directionalLight;
 	private StateManager sm;
 	// Use this for initialization
+	
 	void Start () {
 
 		sm = GameObject.Find ("StateManager").GetComponent<StateManager>();
@@ -17,10 +18,10 @@ public class AddLight : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown(0) && !StateManager.ifclick()) {
+		if (Input.GetMouseButtonDown(0) && sm.canclick()) {
 			Vector3 clickPosition = Input.mousePosition;
 			Debug.Log(clickPosition.x + " " + clickPosition.y + " " + clickPosition.z);
-			if(clickPosition.x > 90 && clickPosition.x < 592 &&
+			if(clickPosition.x > 100 && clickPosition.x < 580 &&
 			   clickPosition.y > 108 && clickPosition.y < 616) {
 				clickPosition = Camera.main.ScreenToWorldPoint(clickPosition);
 				clickPosition.z = -10;

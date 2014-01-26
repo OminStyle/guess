@@ -46,6 +46,7 @@ public class SubmitButton : MonoBehaviour {
 					Debug.Log("winning test");
 					GameObject.Find("CountdownTimer").GetComponent<Timer>().PauseTimer();
 					GameObject.Find("Main Camera").GetComponent<AddLight>().revealPic();
+					pc.ShowPopup(5, false);
 					//Application.Quit();
 
 				
@@ -101,7 +102,7 @@ public class SubmitButton : MonoBehaviour {
 					if (myAnswer == RandomizeTexture.answer1 || myAnswer == RandomizeTexture.answer2 || myAnswer == RandomizeTexture.answer3) {
 						// award score to P2
 						AudioSource.PlayClipAtPoint(correctSFX, new Vector3(0f, 0f, 0f));
-						pc.ShowPopup (6, false);
+						pc.ShowPopup (5, false);
 						StartCoroutine ("HidePopup");
 						Debug.Log ("P2 Guessed right!");
 					}
@@ -131,7 +132,7 @@ public class SubmitButton : MonoBehaviour {
 					if (myAnswer == RandomizeTexture.answer1 || myAnswer == RandomizeTexture.answer2 || myAnswer == RandomizeTexture.answer3) {
 						// award score to P1
 						AudioSource.PlayClipAtPoint(correctSFX, new Vector3(0f, 0f, 0f));
-						pc.ShowPopup (6, false);
+						pc.ShowPopup (5, false);
 						StartCoroutine ("HidePopup");
 						Debug.Log ("P1 Guessed right!");
 					}
