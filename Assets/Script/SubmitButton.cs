@@ -15,8 +15,12 @@ public class SubmitButton : MonoBehaviour {
 		//	Debug.Log("Clicked the button with an image");
 		
 		if (GUI.Button(new Rect(540, 400, 50, 30), "Submit")) {
-			Debug.Log("Clicked the button with text");
+			string myAnswer = TextGUI.getText();
+			Debug.Log("My answer is: " + myAnswer + ". Real answer is: " + RandomizeTexture.answer);
 
+			if (myAnswer == RandomizeTexture.answer) {
+				Application.Quit();
+			}
 		}
 	}
 }
