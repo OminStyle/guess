@@ -38,17 +38,14 @@ public class StateManager: MonoBehaviour{
 	}
 	
 	public static void UpdatePlayerTurn() {
-		Debug.Log ("Switching Turn");
 		if (playerTurn != 1 && playerTurn != 2) {
 			return;
 		}
 		else if(playerTurn == 1){
-			Debug.Log ("Switching Turn");
 			playerTurn = 2;
 			tm.ResetTimer();
 			tm.StartTimer();
 		} else {
-			Debug.Log ("Switching Turn");
 			playerTurn = 1;
 			tm.ResetTimer();
 			tm.StartTimer();

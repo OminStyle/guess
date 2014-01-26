@@ -3,9 +3,18 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	private int playerID;
+	public int playerID;
 	private ArrayList myAnswers;
 	bool clicked;
+
+
+	void Start() {
+		myAnswers = new ArrayList ();
+	}
+
+	void Update() {
+
+	}
 
 	public Player(int id){
 		playerID = id;
@@ -13,11 +22,14 @@ public class Player : MonoBehaviour {
 	}
 	
 
-	void storeAnswer(string myCurrentAnswer){
+	public void storeAnswer(string myCurrentAnswer){
 		myAnswers.Add (myCurrentAnswer);
 	}
 
-	bool alreadySaidIt(string s){
-		return myAnswers.Contains (s);
+	public bool alreadySaidIt(string s){
+		Debug.Log ("alreadySaidIt, s = "+s);
+		bool ret = myAnswers.Contains (s);
+		Debug.Log ("ret = "+ret);
+		return ret;
 	}
 }
