@@ -5,21 +5,13 @@ public class Player : MonoBehaviour {
 
 	private int playerID;
 	private ArrayList myAnswers;
+	bool clicked;
 
 	public Player(int id){
 		playerID = id;
 		myAnswers = new ArrayList ();
 	}
-
-	// Use this for initialization
-	void Start () {
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void storeAnswer(string myCurrentAnswer){
 		myAnswers.Add (myCurrentAnswer);
