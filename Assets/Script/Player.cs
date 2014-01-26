@@ -10,9 +10,13 @@ public class Player : MonoBehaviour {
 	public string unjinxStr = "Unjinx:";
 	bool clicked;
 	public int maxUnjinxAnswerCount = 1;
-	
+	private StateManager sm;
 	
 	void Start() {
+		sm = GameObject.Find ("StateManager").GetComponent<StateManager>();
+		if (sm == null) {
+			Debug.Log ("Game is broken, no state manager");
+		}
 		myAnswers = new ArrayList ();
 		unjinxAnswers = new ArrayList();
 	}
@@ -56,7 +60,7 @@ public class Player : MonoBehaviour {
 		Debug.Log ("unjinxAnswers.Count = "+unjinxAnswers.Count);
 		if (unjinxAnswers.Count >= maxUnjinxAnswerCount) {
 
-			StateManager.UpdatePlayerTurn();
+			sm.UpdatePlayerTurn();
 			// Once player have entered enough unjinx answers, switch to the other player's turn.
 		}
 	}
@@ -64,6 +68,9 @@ public class Player : MonoBehaviour {
 	public bool checkUnjinxAnswer(string ans) {
 		return unjinxAnswers.Contains (ans);
 	}
-	
+
+	public void ClearUnjinxAnswer() {
+		unjinxAnswers = new ArrayList();
+	}
 	
 }

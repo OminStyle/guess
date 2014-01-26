@@ -61,7 +61,6 @@ public class Timer : MonoBehaviour {
 
 	public void StartTimer() {
 		timerStarted = true;
-		currentTimerValue = startTimerValue;
 		this.gameObject.audio.clip = timerTick;
 		this.gameObject.audio.loop = true;
 		this.gameObject.audio.Play();
@@ -83,6 +82,7 @@ public class Timer : MonoBehaviour {
 	}
 
 	public void ResetJinxedTimer() {
+		Debug.Log ("ResetJinxedTimer");
 		timerStarted = false;
 		currentTimerValue = jinxedStartTimerValue;
 	}
@@ -93,12 +93,12 @@ public class Timer : MonoBehaviour {
 		this.gameObject.audio.loop = false;
 		this.gameObject.audio.Play ();
 
-		if (StateManager.GetPlayerJinxed() == 0) {
-			StateManager.UpdatePlayerTurn();	// Regardless if player entered anything, switch turn immediately
+		if (sm.GetPlayerJinxed() == 0) {
+			sm.UpdatePlayerTurn();	// Regardless if player entered anything, switch turn immediately
 		}
 		else {
-			StateManager.UpdateplayerJinxed(0);
-			StateManager.UpdatePlayerTurn();
+			sm.UpdateplayerJinxed(0);
+			sm.UpdatePlayerTurn();
 		}
 	}
 

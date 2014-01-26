@@ -9,6 +9,15 @@ public class SubmitButton : MonoBehaviour {
 	public AudioClip submitSFX;
 	public AudioClip jinxSFX;
 	public static bool result = false;
+	public GameObject smObj;
+	private StateManager sm;
+
+	void Start() {
+		sm = GameObject.Find ("StateManager").GetComponent<StateManager>();
+		if (sm == null) {
+			Debug.Log ("Game is broken, no state manager");
+		}
+	}
 
 	void OnGUI() {
 		if (!btnTexture) {
@@ -25,7 +34,7 @@ public class SubmitButton : MonoBehaviour {
 			Player p1 = p1Obj.GetComponent<Player>();
 			Player p2 = p2Obj.GetComponent<Player>();
 		
-			if (StateManager.GetPlayerJinxed() == 0) {
+			if (sm.GetPlayerJinxed() == 0) {
 				if (myAnswer == RandomizeTexture.answer) {
 					result = true;
 					//PlayerDisplay.showWinner();
@@ -38,34 +47,34 @@ public class SubmitButton : MonoBehaviour {
 				}
 				else {
 					TextGUI.clearText ();
-					if (StateManager.GetPlayerTurn() == 1) {
+					if (sm.GetPlayerTurn() == 1) {
 						// compare answer with P2 previous answers
 						
 						if (p2.alreadySaidIt(myAnswer)) {
 							// if answer is matched, P1 is jinxed
 							Debug.Log ("p1 Jinxed");
-							StateManager.UpdateplayerJinxed(1);
+							sm.UpdateplayerJinxed(1);
 							AudioSource.PlayClipAtPoint(jinxSFX, new Vector3(0f, 0f, 0f));
 							
 						}
 						else {
 							// store player's answer in p1 answer array
 							p1.storeAnswer(myAnswer);
-							StateManager.UpdatePlayerTurn();
+							sm.UpdatePlayerTurn();
 							AudioSource.PlayClipAtPoint(submitSFX, new Vector3(0f, 0f, 0f));
 						}
 					}
-					else if (StateManager.GetPlayerTurn() == 2) {
+					else if (sm.GetPlayerTurn() == 2) {
 						if (p1.alreadySaidIt(myAnswer)) {
 							// if answer is matched, P2 is jinxed
 							Debug.Log ("p2 Jinxed");
-							StateManager.UpdateplayerJinxed(2);
+							sm.UpdateplayerJinxed(2);
 							AudioSource.PlayClipAtPoint(jinxSFX, new Vector3(0f, 0f, 0f));
 						}
 						else {
 							// store player's answer in p2 answer array
 							p2.storeAnswer(myAnswer);
-							StateManager.UpdatePlayerTurn();
+							sm.UpdatePlayerTurn();
 							AudioSource.PlayClipAtPoint(submitSFX, new Vector3(0f, 0f, 0f));
 						}
 					}
@@ -75,14 +84,14 @@ public class SubmitButton : MonoBehaviour {
 
 				}
 			}
-			else if (StateManager.GetPlayerJinxed() == 1) {
+			else if (sm.GetPlayerJinxed() == 1) {
 				// P1 is jinxed
-				if (StateManager.GetPlayerTurn() == 1) {
+				if (sm.GetPlayerTurn() == 1) {
 					// P1's turn, P1 just submitted something, must be trying to submit unjinx answers
 					// store answer in unjinx string array for p1
 					p1.storeUnjinxAnswer(myAnswer);
 				}
-				else if (StateManager.GetPlayerTurn() == 2) {
+				else if (sm.GetPlayerTurn() == 2) {
 					// P2's turn, and P1 is jinxed. P2 is submitting answers to guess the image
 					if (myAnswer == RandomizeTexture.answer) {
 						// award score to P2
@@ -90,8 +99,8 @@ public class SubmitButton : MonoBehaviour {
 					}
 					else if (p1.checkUnjinxAnswer(myAnswer)) {
 						// AHA, P1 is now unjinxed
-						StateManager.UpdateplayerJinxed(0);
-						StateManager.UpdatePlayerTurn();
+						sm.UpdateplayerJinxed(0);
+						sm.UpdatePlayerTurn();
 					}
 					else {
 						// nothing changes, I think
@@ -103,14 +112,14 @@ public class SubmitButton : MonoBehaviour {
 				}
 				TextGUI.clearText ();
 			}
-			else if (StateManager.GetPlayerJinxed() == 2) {
+			else if (sm.GetPlayerJinxed() == 2) {
 				// P2 is jinxed
-				if (StateManager.GetPlayerTurn() == 2) {
+				if (sm.GetPlayerTurn() == 2) {
 					// P2's turn, P2 just submitted something, must be trying to submit unjinx answers
 					// store answer in unjinx string array for p2
 					p2.storeUnjinxAnswer(myAnswer);
 				}
-				else if (StateManager.GetPlayerTurn() == 1) {
+				else if (sm.GetPlayerTurn() == 1) {
 					// P1's turn, and P2 is jinxed. P1 is submitting answers to guess the image
 					if (myAnswer == RandomizeTexture.answer) {
 						// award score to P1
@@ -118,8 +127,8 @@ public class SubmitButton : MonoBehaviour {
 					}
 					else if (p2.checkUnjinxAnswer(myAnswer)) {
 						// AHA, P2 is now unjinxed
-						StateManager.UpdateplayerJinxed(0);
-						StateManager.UpdatePlayerTurn();
+						sm.UpdateplayerJinxed(0);
+						sm.UpdatePlayerTurn();
 					}
 					else {
 						// nothing changes, I think

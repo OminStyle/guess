@@ -13,6 +13,9 @@ public class StateManager: MonoBehaviour{
 	public static Timer tm;
 	static private bool clicked;
 
+	public GameObject p1Obj;
+	public GameObject p2Obj;
+
 	void Start() {
 		tm = GameObject.Find ("CountdownTimer").GetComponent<Timer>();
 		if (tm == null) {
@@ -30,18 +33,20 @@ public class StateManager: MonoBehaviour{
 	public void StartGame() {
 		playerTurn = 1;
 		playerJinxed = 0;
+		tm.ResetTimer ();
 		tm.StartTimer();
 	}
 	
-	public static int GetPlayerTurn() {
+	public int GetPlayerTurn() {
 		return playerTurn;
 	}
 	
-	public static int GetPlayerJinxed() {
+	public int GetPlayerJinxed() {
 		return playerJinxed;
 	}
 	
-	public static void UpdatePlayerTurn() {
+	public void UpdatePlayerTurn() {
+		Debug.Log ("UpdatePlayerTurn");
 		if (playerTurn != 1 && playerTurn != 2) {
 			return;
 		}
@@ -72,7 +77,7 @@ public class StateManager: MonoBehaviour{
 		}
 	}
 	
-	public static void UpdateplayerJinxed(int player) {
+	public void UpdateplayerJinxed(int player) {
 		if (player != 0 && player != 1 && player != 2) {
 			Debug.Log ("StateManager::Updateo=playerJinxed, invalid player value");
 			return;
@@ -114,7 +119,7 @@ public class StateManager: MonoBehaviour{
 		}
 	}
 	
-	public static void UnjinxPlayer() {
+	public void UnjinxPlayer() {
 		// currently jinxed player is stored in playerJinxed
 		
 		// Clear unjinx list
@@ -122,15 +127,27 @@ public class StateManager: MonoBehaviour{
 		Debug.Log ("Unjinx Player");
 		playerJinxed = 0;
 		// Swap player turn
-		playerTurn = (playerTurn == 1) ? 0 : 1;
+		if (playerTurn == 1) {
+			// clear player 2's unjinx list
+			p2Obj.GetComponent<Player>().ClearUnjinxAnswer ();
+		}
+		else if (playerTurn == 2) {
+			// clear player 1's unjinx list
+			p1Obj.GetComponent<Player>().ClearUnjinxAnswer ();
+		}
+		else {
+			// game is brokem
+			Debug.Log ("Invalid playerTurn in StateManager::UnjinxPlayer");
+		}
+		playerTurn = (playerTurn == 1) ? 2 : 1;
 	}
 	
-	public static void JinxPlayer(int playerId) {
+	public void JinxPlayer(int playerId) {
 		Debug.Log ("Jinx Player");
 		playerJinxed = playerId;
 	}
 
-	public static bool click() {
+	public bool click() {
 		bool temp = clicked;
 		if (clicked == false) {
 			clicked = true;
