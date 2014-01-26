@@ -164,12 +164,15 @@ public class StateManager: MonoBehaviour{
 		playerJinxed = playerId;
 	}
 
-	public bool click() {
-		bool temp = clicked;
+
+	public void click() {
+
 		if (clicked == false) {
 			clicked = true;
 		}
-		return temp;
-	}
 
+	}
+	public static bool ifclick(){
+		return clicked;
+	}
 }
