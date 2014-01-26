@@ -79,6 +79,11 @@ public class SubmitButton : MonoBehaviour {
 						// award score to P2
 						Debug.Log ("P2 Guessed right!");
 					}
+					else if (p1.checkUnjinxAnswer(myAnswer)) {
+						// AHA, P1 is now unjinxed
+						StateManager.UpdateplayerJinxed(0);
+						StateManager.UpdatePlayerTurn();
+					}
 					else {
 						// nothing changes, I think
 						// answer guessed while the other player is jinxed is not counted toward the jinx list
@@ -87,6 +92,7 @@ public class SubmitButton : MonoBehaviour {
 				else {
 					// game is broken again
 				}
+				TextGUI.clearText ();
 			}
 			else if (StateManager.GetPlayerJinxed() == 2) {
 				// P2 is jinxed
@@ -101,6 +107,11 @@ public class SubmitButton : MonoBehaviour {
 						// award score to P1
 						Debug.Log ("P1 Guessed right!");
 					}
+					else if (p2.checkUnjinxAnswer(myAnswer)) {
+						// AHA, P2 is now unjinxed
+						StateManager.UpdateplayerJinxed(0);
+						StateManager.UpdatePlayerTurn();
+					}
 					else {
 						// nothing changes, I think
 						// answer guessed while the other player is jinxed is not counted toward the jinx list
@@ -109,6 +120,7 @@ public class SubmitButton : MonoBehaviour {
 				else {
 					// game is broken again
 				}
+				TextGUI.clearText ();
 			}
 		}
 		

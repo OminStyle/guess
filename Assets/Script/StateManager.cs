@@ -12,7 +12,7 @@ public class StateManager: MonoBehaviour{
 	
 	public static Timer tm;
 	static private bool clicked;
-	
+
 	void Start() {
 		tm = GameObject.Find ("CountdownTimer").GetComponent<Timer>();
 		if (tm == null) {
@@ -23,6 +23,8 @@ public class StateManager: MonoBehaviour{
 	}
 	
 	void Update() {
+		GUIText stateTxt = this.transform.FindChild("state").GetComponent<GUIText>();
+		stateTxt.text = "playerTurn: "+playerTurn+" playerJinxed: "+playerJinxed;
 	}
 	
 	public void StartGame() {
@@ -49,7 +51,8 @@ public class StateManager: MonoBehaviour{
 				tm.ResetTimer();
 				tm.StartTimer();
 			}
-			else if (playerJinxed == 2){
+			else if (playerJinxed == 1){
+				playerTurn = 2;
 				tm.ResetJinxedTimer();
 				tm.StartTimer();
 			}
@@ -60,7 +63,8 @@ public class StateManager: MonoBehaviour{
 				tm.ResetTimer();
 				tm.StartTimer();
 			}
-			else if (playerJinxed == 1){
+			else if (playerJinxed == 2){
+				playerTurn = 1;
 				tm.ResetJinxedTimer();
 				tm.StartTimer();
 			}
