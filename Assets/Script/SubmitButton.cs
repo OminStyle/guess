@@ -14,8 +14,8 @@ public class SubmitButton : MonoBehaviour {
 		//if (GUI.Button(new Rect(10, 10, 50, 50), btnTexture))
 		//	Debug.Log("Clicked the button with an image");
 		
-		if (GUI.Button(new Rect(540, 400, 50, 30), "Submit")) {
-			string myAnswer = TextGUI.getText();
+		if (GUI.Button(new Rect(540, 400, 50, 30), "Submit") && TextGUI.getText() != "") {
+			string myAnswer = TextGUI.getText().ToLower();
 			Debug.Log("My answer is: " + myAnswer + ". Real answer is: " + RandomizeTexture.answer);
 			
 			if (StateManager.GetPlayerJinxed() == 0) {
