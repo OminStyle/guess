@@ -4,7 +4,7 @@ using System.Collections;
 public class KeystrokePlayer : MonoBehaviour {
 	
 	public AudioClip[] ksArray;
-	public bool doPlayKeyStroke = false;
+	public bool doPlayKeyStroke = true;
 	
 	// Use this for initialization
 	void Start () {
