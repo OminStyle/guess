@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TextGUI : MonoBehaviour {
-	static private string textFieldString = "text field";
+	static private string textFieldString = "";
 	private string currentGuess;
 
 	void Start(){

@@ -2,29 +2,15 @@
 using System.Collections;
 
 public class display : MonoBehaviour {
-	public string[] myGuesses;
-	//private  string guess = "guess";
-	private  string guess2 = "car";
-	private  string guess3 = "flight";
-	private  string guess4 = "train";
-	private  string guess5 = "lol";
-	
-	
+	public static ArrayList myAnswers = new ArrayList();
+
 	void OnGUI()
 	{
-		myGuesses = new string[5];
-		//myGuesses[0]=guess;
-		myGuesses[0] = RandomizeTexture.answer;
-		myGuesses[1]=guess2;
-		myGuesses[2]=guess3;
-		myGuesses[3]=guess4;
-		myGuesses[4]=guess5;
-		
-		
-		
-		for(int i = 0; i < myGuesses.Length; i++) {
-			string guesses = (string) myGuesses[i];
-			GUI.Label(new Rect(600,100+20*i,Screen.width,Screen.height),guesses);
+		int y = 100;
+		foreach(object str in myAnswers) {
+			string ans = (string)str;
+			GUI.Label(new Rect(600,y,Screen.width,Screen.height),ans);
+			y += 20;
 		}
 	}
 	// Use this for initialization
