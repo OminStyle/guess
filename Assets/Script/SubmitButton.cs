@@ -11,6 +11,8 @@ public class SubmitButton : MonoBehaviour {
 	public static bool result = false;
 	public GameObject smObj;
 	private StateManager sm;
+	private PopupController pc;
+	public bool keyreleased;
 
 	void Start() {
 		sm = GameObject.Find ("StateManager").GetComponent<StateManager>();
@@ -28,12 +30,17 @@ public class SubmitButton : MonoBehaviour {
 		//if (GUI.Button(new Rect(10, 10, 50, 50), btnTexture))
 		//	Debug.Log("Clicked the button with an image");
 
-		if ((GUI.Button(new Rect(750, 550, 60, 30), "Submit") || (Event.current.type == EventType.keyDown && Event.current.character == '\n'))&& TextGUI.getText() != "") {
+
+		if ((GUI.Button(new Rect(750, 550, 60, 30), "Submit") || 
+		     (Event.current.type == EventType.keyDown && Event.current.character == '\n'))&& 
+		    TextGUI.getText() != "") {
+
+			keyreleased = false;
 			string myAnswer = TextGUI.getText().ToLower();
 			Debug.Log("My answer is: " + myAnswer + ". Real answer is: " + RandomizeTexture.answer);
 			Player p1 = p1Obj.GetComponent<Player>();
 			Player p2 = p2Obj.GetComponent<Player>();
-		
+			GameObject.Find("Main Camera").GetComponent<AddLight>().autoUpdate();
 			if (sm.GetPlayerJinxed() == 0) {
 				if (myAnswer == RandomizeTexture.answer) {
 					result = true;
@@ -42,7 +49,6 @@ public class SubmitButton : MonoBehaviour {
 					GameObject.Find("CountdownTimer").GetComponent<Timer>().PauseTimer();
 					GameObject.Find("Main Camera").GetComponent<AddLight>().revealPic();
 					//Application.Quit();
-
 				
 				}
 				else {
@@ -141,11 +147,14 @@ public class SubmitButton : MonoBehaviour {
 				TextGUI.clearText ();
 			}
 		}
-		
+		if (Event.current.type == EventType.keyUp) {
+			keyreleased = true;
+		}
 		
 	}
 
 	public static bool getResult(){
 		return result;
 	}
+	
 }

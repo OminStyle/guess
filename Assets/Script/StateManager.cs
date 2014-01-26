@@ -18,6 +18,8 @@ public class StateManager: MonoBehaviour{
 	public GameObject popupObj;
 	private PopupController pc;
 
+	public bool changed;
+
 	void Start() {
 		tm = GameObject.Find ("CountdownTimer").GetComponent<Timer>();
 		if (tm == null) {
@@ -33,8 +35,9 @@ public class StateManager: MonoBehaviour{
 		stateTxt.text = "playerTurn: "+playerTurn+" playerJinxed: "+playerJinxed;
 
 		if (pc.IsPopupShowing()) {
-			if (Input.anyKeyDown) {
+			if (Input.anyKeyDown || changed) {
 				pc.HidePopup();
+				changed = false;
 				tm.StartTimer ();
 			}
 		}
@@ -175,5 +178,16 @@ public class StateManager: MonoBehaviour{
 	}
 	public static bool ifclick(){
 		return clicked;
+	}
+	
+
+	void OnGUI() {
+		if (pc.IsPopupShowing() && GameObject.Find ("Main Camera").GetComponent<SubmitButton>().keyreleased) {
+			if (Event.current.type == EventType.keyDown  ) {
+				pc.HidePopup();
+				tm.StartTimer ();
+				Debug.Log("StateManager OnGUI");
+			}
+		}	
 	}
 }
