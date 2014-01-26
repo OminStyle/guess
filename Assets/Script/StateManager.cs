@@ -9,10 +9,10 @@ public class StateManager: MonoBehaviour{
 	
 	public static int playerTurn;	// either 1 or 2. DO NOT ASSIGN ANY OTHER VALUE TO IT
 	public static int playerJinxed;	// 0, 1 or 2. 0 means no player is Jinxed, 1 means player 1 is, 2 means player 2 is.
-
+	
 	public static Timer tm;
 	static private bool clicked;
-
+	
 	void Start() {
 		tm = GameObject.Find ("CountdownTimer").GetComponent<Timer>();
 		if (tm == null) {
@@ -24,7 +24,7 @@ public class StateManager: MonoBehaviour{
 	
 	void Update() {
 	}
-
+	
 	public void StartGame() {
 		playerTurn = 1;
 		playerJinxed = 0;
@@ -44,18 +44,31 @@ public class StateManager: MonoBehaviour{
 			return;
 		}
 		else if(playerTurn == 1){
-			playerTurn = 2;
-			tm.ResetTimer();
-			tm.StartTimer();
+			if (playerJinxed == 0) {	// no one is jinxed, everything is normal
+				playerTurn = 2;
+				tm.ResetTimer();
+				tm.StartTimer();
+			}
+			else if (playerJinxed == 2){
+				tm.ResetJinxedTimer();
+				tm.StartTimer();
+			}
+			clicked = false;
 		} else {
-			playerTurn = 1;
-			tm.ResetTimer();
-			tm.StartTimer();
+			if (playerJinxed == 0) {	// no one is jinxed, everything is normal
+				playerTurn = 1;
+				tm.ResetTimer();
+				tm.StartTimer();
+			}
+			else if (playerJinxed == 1){
+				tm.ResetJinxedTimer();
+				tm.StartTimer();
+			}
+			clicked = false;
 		}
-		clicked = false;
 	}
 	
-	public void UpdateplayerJinxed(int player) {
+	public static void UpdateplayerJinxed(int player) {
 		if (player != 0 && player != 1 && player != 2) {
 			Debug.Log ("StateManager::Updateo=playerJinxed, invalid player value");
 			return;
@@ -84,21 +97,33 @@ public class StateManager: MonoBehaviour{
 					JinxPlayer(2);
 				}
 			}
+			else if (player == 2) {
+				// It should be player 1's turn
+				if (playerTurn == 2) {
+					JinxPlayer(2);
+				}
+				else if (playerTurn == 1) {
+					JinxPlayer(1);
+				}
+			}
+			
 		}
 	}
 	
-	public void UnjinxPlayer() {
+	public static void UnjinxPlayer() {
 		// currently jinxed player is stored in playerJinxed
 		
 		// Clear unjinx list
 		// Update jinxed state
+		Debug.Log ("Unjinx Player");
 		playerJinxed = 0;
 		// Swap player turn
 		playerTurn = (playerTurn == 1) ? 0 : 1;
 	}
-
-	public void JinxPlayer(int playerId) {
-		// stub function for now
+	
+	public static void JinxPlayer(int playerId) {
+		Debug.Log ("Jinx Player");
+		playerJinxed = playerId;
 	}
 
 	public static bool click() {
@@ -108,4 +133,5 @@ public class StateManager: MonoBehaviour{
 		}
 		return temp;
 	}
+
 }

@@ -14,6 +14,7 @@ public class Timer : MonoBehaviour {
 	public GUIText timerGUI;
 	public int startTimerValue;	// unit in seconds
 	private float currentTimerValue;	// unit in seconds
+	public int jinxedStartTimerValue;// in seconds
 
 	private bool timerStarted = false;
 
@@ -81,12 +82,24 @@ public class Timer : MonoBehaviour {
 		currentTimerValue = startTimerValue;
 	}
 
+	public void ResetJinxedTimer() {
+		timerStarted = false;
+		currentTimerValue = jinxedStartTimerValue;
+	}
+
 	private void OnTimerDone() {
 		Debug.Log ("Timer is done, do some stuff!");
 		this.gameObject.audio.clip = timerEnd;
 		this.gameObject.audio.loop = false;
 		this.gameObject.audio.Play ();
-		StateManager.UpdatePlayerTurn();	// Regardless if player entered anything, switch turn immediately
+
+		if (StateManager.GetPlayerJinxed() == 0) {
+			StateManager.UpdatePlayerTurn();	// Regardless if player entered anything, switch turn immediately
+		}
+		else {
+			StateManager.UpdateplayerJinxed(0);
+			StateManager.UpdatePlayerTurn();
+		}
 	}
 
 	static string GetMinuteFromTotalTime(int second) {
