@@ -17,7 +17,7 @@ public class StateManager: MonoBehaviour{
 	public GameObject p2Obj;
 	public GameObject popupObj;
 	private PopupController pc;
-
+	
 	public AudioClip revealSound;
 	public AudioClip unjinxOtherSound;
 
@@ -36,8 +36,9 @@ public class StateManager: MonoBehaviour{
 		stateTxt.text = "playerTurn: "+playerTurn+" playerJinxed: "+playerJinxed;
 
 		if (pc.IsPopupShowing()) {
-			if (Input.anyKeyDown) {
+			if (Input.anyKeyDown || changed) {
 				pc.HidePopup();
+				changed = false;
 				tm.StartTimer ();
 			}
 		}
@@ -184,5 +185,16 @@ public class StateManager: MonoBehaviour{
 
 	public bool canclick(){
 		return (!clicked  && !pc.IsPopupShowing());
+	}
+	
+
+	void OnGUI() {
+		if (pc.IsPopupShowing() && GameObject.Find ("Main Camera").GetComponent<SubmitButton>().keyreleased) {
+			if (Event.current.type == EventType.keyDown  ) {
+				pc.HidePopup();
+				tm.StartTimer ();
+				Debug.Log("StateManager OnGUI");
+			}
+		}	
 	}
 }

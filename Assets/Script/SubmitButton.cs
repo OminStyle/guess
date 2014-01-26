@@ -12,8 +12,13 @@ public class SubmitButton : MonoBehaviour {
 	public static bool result = false;
 	public GameObject smObj;
 	private StateManager sm;
+<<<<<<< HEAD
+	private PopupController pc;
+	public bool keyreleased;
+=======
 	public GameObject popupObj;
 	private PopupController pc;
+>>>>>>> bae9e5165766e7ef4f464634cb2221f81744d340
 
 	void Start() {
 		sm = GameObject.Find ("StateManager").GetComponent<StateManager>();
@@ -32,12 +37,17 @@ public class SubmitButton : MonoBehaviour {
 		//if (GUI.Button(new Rect(10, 10, 50, 50), btnTexture))
 		//	Debug.Log("Clicked the button with an image");
 
-		if ((GUI.Button(new Rect(750, 550, 60, 30), "Submit") || (Event.current.type == EventType.keyDown && Event.current.character == '\n'))&& TextGUI.getText() != "") {
+
+		if ((GUI.Button(new Rect(750, 550, 60, 30), "Submit") || 
+		     (Event.current.type == EventType.keyDown && Event.current.character == '\n'))&& 
+		    TextGUI.getText() != "") {
+
+			keyreleased = false;
 			string myAnswer = TextGUI.getText().ToLower();
 			Debug.Log("My answer is: " + myAnswer + ". Real answer is: " + RandomizeTexture.answer1 + ", "+RandomizeTexture.answer2+", "+RandomizeTexture.answer3);
 			Player p1 = p1Obj.GetComponent<Player>();
 			Player p2 = p2Obj.GetComponent<Player>();
-		
+			GameObject.Find("Main Camera").GetComponent<AddLight>().autoUpdate();
 			if (sm.GetPlayerJinxed() == 0) {
 				if (myAnswer == RandomizeTexture.answer1 || myAnswer == RandomizeTexture.answer2 || myAnswer == RandomizeTexture.answer3) {
 					AudioSource.PlayClipAtPoint(correctSFX, new Vector3(0f, 0f, 0f));
@@ -48,7 +58,6 @@ public class SubmitButton : MonoBehaviour {
 					GameObject.Find("Main Camera").GetComponent<AddLight>().revealPic();
 					pc.ShowPopup(5, false);
 					//Application.Quit();
-
 				
 				}
 				else {
@@ -151,17 +160,13 @@ public class SubmitButton : MonoBehaviour {
 				TextGUI.clearText ();
 			}
 		}
-		
+		if (Event.current.type == EventType.keyUp) {
+			keyreleased = true;
+		}
 		
 	}
 
 	public static bool getResult(){
 		return result;
 	}
-
-	IEnumerator HidePopup() {
-		yield return new WaitForSeconds(5f);
-		pc.HidePopup();
-	}
-
 }
