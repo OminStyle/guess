@@ -11,7 +11,7 @@ public class TextGUI : MonoBehaviour {
 	void OnGUI(){
 
 		
-		textFieldString = GUI.TextField (new Rect (600, 500, 100, 30), textFieldString, 25);
+		textFieldString = GUI.TextField (new Rect (600, 500, 200, 30), textFieldString, 25);
 		
 		GUI.Label (new Rect(600,475,100,100), "Guess: ");
 	}

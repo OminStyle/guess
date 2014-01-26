@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AddLight : MonoBehaviour {
 	public GameObject spotlight;
-	public GameObject plane;
+	public GameObject directionalLight;
 
 	// Use this for initialization
 	void Start () {
@@ -22,5 +22,9 @@ public class AddLight : MonoBehaviour {
 				Instantiate( spotlight, clickPosition,Quaternion.identity);
 			}
 		}
+	}
+
+	public void revealPic() {
+		Instantiate(directionalLight, new Vector3(),Quaternion.identity);
 	}
 }

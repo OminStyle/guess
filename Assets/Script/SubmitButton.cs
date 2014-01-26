@@ -31,7 +31,7 @@ public class SubmitButton : MonoBehaviour {
 					//PlayerDisplay.showWinner();
 					Debug.Log("winning test");
 					GameObject.Find("CountdownTimer").GetComponent<Timer>().PauseTimer();
-
+					GameObject.Find("Main Camera").GetComponent<AddLight>().revealPic();
 					//Application.Quit();
 
 				
