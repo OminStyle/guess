@@ -27,12 +27,14 @@ public class StateManager: MonoBehaviour{
 		return playerJinxed;
 	}
 	
-	public void UpdatePlayerTurn(int player) {
-		if (player != 1 && player != 2) {
+	public void UpdatePlayerTurn() {
+		if (playerTurn != 1 && playerTurn != 2) {
 			return;
 		}
-		else {
-			// do stuff here
+		else if(playerTurn == 1){
+			playerTurn = 2;
+		} else {
+			playerTurn = 1;
 		}
 	}
 	
