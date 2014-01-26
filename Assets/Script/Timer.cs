@@ -52,6 +52,9 @@ public class Timer : MonoBehaviour {
 			string timerText = GetMinuteFromTotalTime(timeInInt) + ":" + GetSecondFromTotalTime(timeInInt);
 			timerGUI.text = timerText;
 
+			if (currentTimerValue <= 5f && !this.gameObject.audio.isPlaying) {
+				this.gameObject.audio.Play();
+			}
 			if (currentTimerValue == 0) {
 				timerStarted = false;	// stop the timer
 				OnTimerDone ();
@@ -62,8 +65,7 @@ public class Timer : MonoBehaviour {
 	public void StartTimer() {
 		timerStarted = true;
 		this.gameObject.audio.clip = timerTick;
-		this.gameObject.audio.loop = true;
-		this.gameObject.audio.Play();
+		this.gameObject.audio.loop = false;
 	}
 
 	public void PauseTimer() {
