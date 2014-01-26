@@ -6,6 +6,8 @@ public class Player : MonoBehaviour {
 	public int playerID;
 	private ArrayList myAnswers;
 	private ArrayList unjinxAnswers;
+	public string answerStr = "Anwsers:";
+	public string unjinxStr = "Unjinx:";
 	bool clicked;
 	public int maxUnjinxAnswerCount = 1;
 	
@@ -16,7 +18,10 @@ public class Player : MonoBehaviour {
 	}
 	
 	void Update() {
-		
+		GUIText ansTxt = this.transform.FindChild("answer").GetComponent<GUIText>();
+		ansTxt.text = answerStr;
+		GUIText unjTxt = this.transform.FindChild("unjinx").GetComponent<GUIText>();
+		unjTxt.text = unjinxStr;
 	}
 	
 	public Player(int id){
@@ -31,6 +36,9 @@ public class Player : MonoBehaviour {
 	
 	public void storeAnswer(string myCurrentAnswer){
 		myAnswers.Add (myCurrentAnswer);
+
+		//Debug
+		answerStr += "\n"+myCurrentAnswer;
 	}
 	
 	public bool alreadySaidIt(string s){
@@ -41,8 +49,13 @@ public class Player : MonoBehaviour {
 	}
 	
 	public void storeUnjinxAnswer(string answer) {
+		Debug.Log ("Player "+playerID+" storeUnjinxAnswer");
 		unjinxAnswers.Add (answer);
+		//Debug
+		unjinxStr += "\n"+answer;
+		Debug.Log ("unjinxAnswers.Count = "+unjinxAnswers.Count);
 		if (unjinxAnswers.Count >= maxUnjinxAnswerCount) {
+
 			StateManager.UpdatePlayerTurn();
 			// Once player have entered enough unjinx answers, switch to the other player's turn.
 		}
