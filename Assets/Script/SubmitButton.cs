@@ -8,6 +8,7 @@ public class SubmitButton : MonoBehaviour {
 	public GameObject p2Obj;
 	public AudioClip submitSFX;
 	public AudioClip jinxSFX;
+	public static bool result = false;
 
 	void OnGUI() {
 		if (!btnTexture) {
@@ -23,9 +24,17 @@ public class SubmitButton : MonoBehaviour {
 			Debug.Log("My answer is: " + myAnswer + ". Real answer is: " + RandomizeTexture.answer);
 			Player p1 = p1Obj.GetComponent<Player>();
 			Player p2 = p2Obj.GetComponent<Player>();
+		
 			if (StateManager.GetPlayerJinxed() == 0) {
 				if (myAnswer == RandomizeTexture.answer) {
-					Application.Quit();
+					result = true;
+					//PlayerDisplay.showWinner();
+					Debug.Log("winning test");
+					GameObject.Find("CountdownTimer").GetComponent<Timer>().PauseTimer();
+
+					//Application.Quit();
+
+				
 				}
 				else {
 					TextGUI.clearText ();
@@ -113,5 +122,9 @@ public class SubmitButton : MonoBehaviour {
 		}
 		
 		
+	}
+
+	public static bool getResult(){
+		return result;
 	}
 }
