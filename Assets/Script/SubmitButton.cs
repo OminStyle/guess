@@ -29,6 +29,7 @@ public class SubmitButton : MonoBehaviour {
 					Application.Quit();
 				}
 				else {
+					TextGUI.clearText();
 					if (StateManager.GetPlayerTurn() == 1) {
 						// compare answer with P2 previous answers
 						
@@ -60,7 +61,6 @@ public class SubmitButton : MonoBehaviour {
 					else {
 						// OMG game is horribly broken
 					}
-					display.myAnswers.Add(myAnswer);
 				}
 			}
 			else if (StateManager.GetPlayerJinxed() == 1) {

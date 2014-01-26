@@ -19,6 +19,7 @@ public class TextGUI : MonoBehaviour {
 	public static string getText() {
 		return textFieldString;
 	}
-
-
+	public static void clearText() {
+		textFieldString = "";
+	}
 }

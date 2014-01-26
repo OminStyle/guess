@@ -11,12 +11,14 @@ public class StateManager: MonoBehaviour{
 	public static int playerJinxed;	// 0, 1 or 2. 0 means no player is Jinxed, 1 means player 1 is, 2 means player 2 is.
 
 	public static Timer tm;
+	static private bool clicked;
 
 	void Start() {
 		tm = GameObject.Find ("CountdownTimer").GetComponent<Timer>();
 		if (tm == null) {
 			Debug.Log ("timer is unassigned in StateManager");
 		}
+		clicked = false;
 		StartGame ();
 	}
 	
@@ -50,6 +52,7 @@ public class StateManager: MonoBehaviour{
 			tm.ResetTimer();
 			tm.StartTimer();
 		}
+		clicked = false;
 	}
 	
 	public void UpdateplayerJinxed(int player) {
@@ -96,5 +99,13 @@ public class StateManager: MonoBehaviour{
 
 	public void JinxPlayer(int playerId) {
 		// stub function for now
+	}
+
+	public static bool click() {
+		bool temp = clicked;
+		if (clicked == false) {
+			clicked = true;
+		}
+		return temp;
 	}
 }
