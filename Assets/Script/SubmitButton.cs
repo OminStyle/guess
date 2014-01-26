@@ -23,6 +23,7 @@ public class SubmitButton : MonoBehaviour {
 					Application.Quit();
 				}
 				else {
+					StateManager.UpdatePlayerTurn();
 					if (StateManager.GetPlayerTurn() == 1) {
 						// compare answer with P2 previous answers
 						

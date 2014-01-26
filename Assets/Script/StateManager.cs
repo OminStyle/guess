@@ -27,7 +27,7 @@ public class StateManager: MonoBehaviour{
 		return playerJinxed;
 	}
 	
-	public void UpdatePlayerTurn() {
+	public static void UpdatePlayerTurn() {
 		if (playerTurn != 1 && playerTurn != 2) {
 			return;
 		}
