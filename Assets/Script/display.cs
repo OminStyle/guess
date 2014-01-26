@@ -20,6 +20,7 @@ public class display : MonoBehaviour {
 		} else {
 			currentPlayerObj = "P2Obj";
 		}
+		GUI.contentColor = Color.black;
 		foreach(object str in GameObject.Find (currentPlayerObj).GetComponent<Player>().getMyAnswers()) {
 			string ans = (string)str;
 			GUI.Label(new Rect(600,y,Screen.width,Screen.height),ans);

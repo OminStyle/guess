@@ -14,13 +14,15 @@ public class PopupController : MonoBehaviour {
 
 	private bool showing = false;
 
+	Vector3 showPopupV = new Vector3(0.5f, 0.47f, 20f);
+	Vector3 hidePopupV = new Vector3(10f, 10f, 20f);
 	float showPopupZ = -2f;
 	float hidePopupZ = 20f;
 	int nextPopupIndex = -1;
 
 	// Use this for initialization
 	void Start () {
-	
+		HidePopup ();
 	}
 	
 	// Update is called once per frame
@@ -37,19 +39,19 @@ public class PopupController : MonoBehaviour {
 			}
 		}
 		else {
-			gameObject.renderer.material.mainTexture = popupTextures[texIndex];
-			gameObject.transform.position = new Vector3(0f, 0f, showPopupZ);
+			gameObject.guiTexture.texture = popupTextures[texIndex];
+			gameObject.transform.position = showPopupV;
 			showing = true;
 		}
 	}
 
 	public void HidePopup() {
 		if (nextPopupIndex == -1) {
-			gameObject.transform.position = new Vector3(0f, 0f, hidePopupZ);
+			gameObject.transform.position = hidePopupV;
 			showing = false;
 		}
 		else {
-			gameObject.renderer.material.mainTexture = popupTextures[nextPopupIndex];
+			gameObject.guiTexture.texture = popupTextures[nextPopupIndex];
 			nextPopupIndex = -1;
 		}
 	}

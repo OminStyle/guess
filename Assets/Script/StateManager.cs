@@ -64,13 +64,13 @@ public class StateManager: MonoBehaviour{
 			if (playerJinxed == 0) {	// no one is jinxed, everything is normal
 				playerTurn = 2;
 				tm.ResetTimer();
-				pc.ShowPopup(1, false);
+				pc.ShowPopup(0, false);
 				//tm.StartTimer();
 			}
 			else if (playerJinxed == 1){
 				playerTurn = 2;
 				tm.ResetJinxedTimer();
-				tm.StartTimer();
+				pc.ShowPopup(0, false);
 			}
 			clicked = false;
 		} else {
@@ -83,7 +83,7 @@ public class StateManager: MonoBehaviour{
 			else if (playerJinxed == 2){
 				playerTurn = 1;
 				tm.ResetJinxedTimer();
-				tm.StartTimer();
+				pc.ShowPopup(1, false);
 			}
 			clicked = false;
 		}
@@ -162,6 +162,7 @@ public class StateManager: MonoBehaviour{
 	public void JinxPlayer(int playerId) {
 		Debug.Log ("Jinx Player");
 		playerJinxed = playerId;
+		tm.ResetTimer();
 	}
 
 
