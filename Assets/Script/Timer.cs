@@ -20,14 +20,21 @@ public class Timer : MonoBehaviour {
 	public AudioClip timerTick;
 	public AudioClip timerEnd;
 
+	private StateManager sm;
+
 	// Use this for initialization
 	void Start () {
 		if (timerGUI == null || startTimerValue == null) {
 			Debug.LogError ("Null Variables in Timer.cs");
 		}
 
+		sm = GameObject.Find ("StateManager").GetComponent<StateManager>();
+		if (sm == null) {
+			Debug.Log ("Game is broken, no state manager");
+		}
+
 		// Test code
-		UnitTest ();
+		//UnitTest ();
 	}
 	
 	// Update is called once per frame
@@ -79,6 +86,7 @@ public class Timer : MonoBehaviour {
 		this.gameObject.audio.clip = timerEnd;
 		this.gameObject.audio.loop = false;
 		this.gameObject.audio.Play ();
+		StateManager.UpdatePlayerTurn();	// Regardless if player entered anything, switch turn immediately
 	}
 
 	static string GetMinuteFromTotalTime(int second) {

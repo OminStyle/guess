@@ -23,23 +23,24 @@ public class SubmitButton : MonoBehaviour {
 					Application.Quit();
 				}
 				else {
-					StateManager.UpdatePlayerTurn();
 					if (StateManager.GetPlayerTurn() == 1) {
 						// compare answer with P2 previous answers
 						
-						if (true) {
+						if (false) {
 							// if answer is matched, P1 is jinxed
 						}
 						else {
 							// store player's answer in p1 answer array
+							StateManager.UpdatePlayerTurn();
 						}
 					}
 					else if (StateManager.GetPlayerTurn() == 2) {
-						if (true) {
+						if (false) {
 							// if answer is matched, P2 is jinxed
 						}
 						else {
 							// store player's answer in p2 answer array
+							StateManager.UpdatePlayerTurn();
 						}
 					}
 					else {
