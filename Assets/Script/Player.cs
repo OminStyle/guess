@@ -70,7 +70,9 @@ public class Player : MonoBehaviour {
 	}
 
 	public void ClearUnjinxAnswer() {
-		unjinxAnswers = new ArrayList();
+		Debug.Log ("ClearUnjinxAnswer for player "+playerID);
+		unjinxAnswers.Clear();
+		unjinxStr = "Unjinx:";
 	}
 	
 }

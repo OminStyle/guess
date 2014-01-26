@@ -98,7 +98,6 @@ public class Timer : MonoBehaviour {
 		}
 		else {
 			sm.UpdateplayerJinxed(0);
-			sm.UpdatePlayerTurn();
 		}
 	}
 

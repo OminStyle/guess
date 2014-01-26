@@ -139,7 +139,7 @@ public class StateManager: MonoBehaviour{
 			// game is brokem
 			Debug.Log ("Invalid playerTurn in StateManager::UnjinxPlayer");
 		}
-		playerTurn = (playerTurn == 1) ? 2 : 1;
+		UpdatePlayerTurn();
 	}
 	
 	public void JinxPlayer(int playerId) {
