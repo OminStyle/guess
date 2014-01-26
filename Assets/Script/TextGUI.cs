@@ -22,4 +22,7 @@ public class TextGUI : MonoBehaviour {
 	public static void clearText() {
 		textFieldString = "";
 	}
+	public static void enter(){
+		Input.GetKeyDown ("return");
+		}
 }

@@ -8,18 +8,16 @@ public class SubmitButton : MonoBehaviour {
 	public GameObject p2Obj;
 	public AudioClip submitSFX;
 	public AudioClip jinxSFX;
-
 	void OnGUI() {
 		if (!btnTexture) {
 			Debug.LogError("Please assign a texture on the inspector");
 			return;
 		}
-		
 		// button using a texture
 		//if (GUI.Button(new Rect(10, 10, 50, 50), btnTexture))
 		//	Debug.Log("Clicked the button with an image");
-		
-		if (GUI.Button(new Rect(540, 400, 60, 30), "Submit") && TextGUI.getText() != "") {
+
+		if ((GUI.Button(new Rect(540, 400, 60, 30), "Submit") || (Event.current.type == EventType.keyDown && Event.current.character == '\n'))&& TextGUI.getText() != "") {
 			string myAnswer = TextGUI.getText().ToLower();
 			Debug.Log("My answer is: " + myAnswer + ". Real answer is: " + RandomizeTexture.answer);
 			Player p1 = p1Obj.GetComponent<Player>();
