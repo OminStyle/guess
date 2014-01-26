@@ -6,25 +6,27 @@ using System.Collections;
  */
 
 public class StateManager: MonoBehaviour{
-
+	
 	public static int playerTurn;	// either 1 or 2. DO NOT ASSIGN ANY OTHER VALUE TO IT
 	public static int playerJinxed;	// 0, 1 or 2. 0 means no player is Jinxed, 1 means player 1 is, 2 means player 2 is.
-
+	
 	void Start() {
+		playerTurn = 1;
+		playerJinxed = 0;
 	}
-
+	
 	void Update() {
 	}
-
+	
 	
 	public static int GetPlayerTurn() {
 		return playerTurn;
 	}
-
+	
 	public static int GetPlayerJinxed() {
 		return playerJinxed;
 	}
-
+	
 	public void UpdatePlayerTurn(int player) {
 		if (player != 1 && player != 2) {
 			return;
@@ -33,13 +35,50 @@ public class StateManager: MonoBehaviour{
 			// do stuff here
 		}
 	}
-
+	
 	public void UpdateplayerJinxed(int player) {
 		if (player != 0 && player != 1 && player != 2) {
+			Debug.Log ("StateManager::Updateo=playerJinxed, invalid player value");
+			return;
+		}
+		else if (player == playerJinxed ||					// for some reason, we are updating the jinxedPlayer to the same value?
+		         (player == 1 && playerJinxed == 2) ||		// we can't go from p2 jinxed to p1 jinxed directly
+		         (player == 2 && playerJinxed == 1) || 		// or from p1 jinxed to p2 jinxed
+		         (player == 1 && playerTurn != 1) ||		// or we are jinxing player who didn't just make a guess now
+		         (player == 2 && playerTurn != 2) ) {
+			Debug.Log ("StateManager::Updateo=playerJinxed, invalid state transition.");
+			Debug.Log("playerTurn = "+playerTurn);
+			Debug.Log ("playerJinxed = "+playerJinxed);
+			Debug.Log ("passed in argument player: "+player);
 			return;
 		}
 		else {
-			// do stuff here
+			if (player == 0) {
+				UnjinxPlayer();
+			}
+			else if (player == 1) {
+				// It should be player 1's turn
+				if (playerTurn == 1) {
+					JinxPlayer(1);
+				}
+				else if (playerTurn == 2) {
+					JinxPlayer(2);
+				}
+			}
 		}
+	}
+	
+	public void UnjinxPlayer() {
+		// currently jinxed player is stored in playerJinxed
+		
+		// Clear unjinx list
+		// Update jinxed state
+		playerJinxed = 0;
+		// Swap player turn
+		playerTurn = (playerTurn == 1) ? 0 : 1;
+	}
+
+	public void JinxPlayer(int playerId) {
+		// stub function for now
 	}
 }
