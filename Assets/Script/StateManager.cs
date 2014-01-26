@@ -17,8 +17,9 @@ public class StateManager: MonoBehaviour{
 	public GameObject p2Obj;
 	public GameObject popupObj;
 	private PopupController pc;
-
-	public bool changed;
+	
+	public AudioClip revealSound;
+	public AudioClip unjinxOtherSound;
 
 	void Start() {
 		tm = GameObject.Find ("CountdownTimer").GetComponent<Timer>();
@@ -67,26 +68,26 @@ public class StateManager: MonoBehaviour{
 			if (playerJinxed == 0) {	// no one is jinxed, everything is normal
 				playerTurn = 2;
 				tm.ResetTimer();
-				pc.ShowPopup(0, false);
+				pc.ShowPopup(1, false);
 				//tm.StartTimer();
 			}
 			else if (playerJinxed == 1){
 				playerTurn = 2;
 				tm.ResetJinxedTimer();
-				pc.ShowPopup(0, false);
+				pc.ShowPopup(3, false);
 			}
 			clicked = false;
 		} else {
 			if (playerJinxed == 0) {	// no one is jinxed, everything is normal
 				playerTurn = 1;
 				tm.ResetTimer();
-				pc.ShowPopup(1, false);
+				pc.ShowPopup(0, false);
 				//tm.StartTimer();
 			}
 			else if (playerJinxed == 2){
 				playerTurn = 1;
 				tm.ResetJinxedTimer();
-				pc.ShowPopup(1, false);
+				pc.ShowPopup(3, false);
 			}
 			clicked = false;
 		}
@@ -146,6 +147,7 @@ public class StateManager: MonoBehaviour{
 		// Update jinxed state
 		Debug.Log ("Unjinx Player");
 		playerJinxed = 0;
+		AudioSource.PlayClipAtPoint(unjinxOtherSound, new Vector3(0f, 0f, 0f));
 		// Swap player turn
 		if (playerTurn == 1) {
 			// clear player 2's unjinx list
@@ -174,10 +176,15 @@ public class StateManager: MonoBehaviour{
 		if (clicked == false) {
 			clicked = true;
 		}
+		AudioSource.PlayClipAtPoint(revealSound, new Vector3(0f, 0f, 0f));
 
 	}
-	public static bool ifclick(){
-		return clicked;
+	public bool ifclick(){
+		return (!clicked  && !pc.IsPopupShowing());
+	}
+
+	public bool canclick(){
+		return (!clicked  && !pc.IsPopupShowing());
 	}
 	
 

@@ -8,17 +8,24 @@ public class SubmitButton : MonoBehaviour {
 	public GameObject p2Obj;
 	public AudioClip submitSFX;
 	public AudioClip jinxSFX;
+	public AudioClip correctSFX;
 	public static bool result = false;
 	public GameObject smObj;
 	private StateManager sm;
+<<<<<<< HEAD
 	private PopupController pc;
 	public bool keyreleased;
+=======
+	public GameObject popupObj;
+	private PopupController pc;
+>>>>>>> bae9e5165766e7ef4f464634cb2221f81744d340
 
 	void Start() {
 		sm = GameObject.Find ("StateManager").GetComponent<StateManager>();
 		if (sm == null) {
 			Debug.Log ("Game is broken, no state manager");
 		}
+		pc = popupObj.GetComponent<PopupController>();
 	}
 
 	void OnGUI() {
@@ -37,12 +44,13 @@ public class SubmitButton : MonoBehaviour {
 
 			keyreleased = false;
 			string myAnswer = TextGUI.getText().ToLower();
-			Debug.Log("My answer is: " + myAnswer + ". Real answer is: " + RandomizeTexture.answer);
+			Debug.Log("My answer is: " + myAnswer + ". Real answer is: " + RandomizeTexture.answer1 + ", "+RandomizeTexture.answer2+", "+RandomizeTexture.answer3);
 			Player p1 = p1Obj.GetComponent<Player>();
 			Player p2 = p2Obj.GetComponent<Player>();
 			GameObject.Find("Main Camera").GetComponent<AddLight>().autoUpdate();
 			if (sm.GetPlayerJinxed() == 0) {
-				if (myAnswer == RandomizeTexture.answer) {
+				if (myAnswer == RandomizeTexture.answer1 || myAnswer == RandomizeTexture.answer2 || myAnswer == RandomizeTexture.answer3) {
+					AudioSource.PlayClipAtPoint(correctSFX, new Vector3(0f, 0f, 0f));
 					result = true;
 					//PlayerDisplay.showWinner();
 					Debug.Log("winning test");
@@ -99,14 +107,16 @@ public class SubmitButton : MonoBehaviour {
 				}
 				else if (sm.GetPlayerTurn() == 2) {
 					// P2's turn, and P1 is jinxed. P2 is submitting answers to guess the image
-					if (myAnswer == RandomizeTexture.answer) {
+					if (myAnswer == RandomizeTexture.answer1 || myAnswer == RandomizeTexture.answer2 || myAnswer == RandomizeTexture.answer3) {
 						// award score to P2
+						AudioSource.PlayClipAtPoint(correctSFX, new Vector3(0f, 0f, 0f));
+						pc.ShowPopup (6, false);
+						StartCoroutine ("HidePopup");
 						Debug.Log ("P2 Guessed right!");
 					}
 					else if (p1.checkUnjinxAnswer(myAnswer)) {
 						// AHA, P1 is now unjinxed
 						sm.UpdateplayerJinxed(0);
-						sm.UpdatePlayerTurn();
 					}
 					else {
 						// nothing changes, I think
@@ -127,14 +137,16 @@ public class SubmitButton : MonoBehaviour {
 				}
 				else if (sm.GetPlayerTurn() == 1) {
 					// P1's turn, and P2 is jinxed. P1 is submitting answers to guess the image
-					if (myAnswer == RandomizeTexture.answer) {
+					if (myAnswer == RandomizeTexture.answer1 || myAnswer == RandomizeTexture.answer2 || myAnswer == RandomizeTexture.answer3) {
 						// award score to P1
+						AudioSource.PlayClipAtPoint(correctSFX, new Vector3(0f, 0f, 0f));
+						pc.ShowPopup (6, false);
+						StartCoroutine ("HidePopup");
 						Debug.Log ("P1 Guessed right!");
 					}
 					else if (p2.checkUnjinxAnswer(myAnswer)) {
 						// AHA, P2 is now unjinxed
 						sm.UpdateplayerJinxed(0);
-						sm.UpdatePlayerTurn();
 					}
 					else {
 						// nothing changes, I think
@@ -156,5 +168,4 @@ public class SubmitButton : MonoBehaviour {
 	public static bool getResult(){
 		return result;
 	}
-	
 }
