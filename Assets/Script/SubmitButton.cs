@@ -20,6 +20,8 @@ public class SubmitButton : MonoBehaviour {
 
 			if (myAnswer == RandomizeTexture.answer) {
 				Application.Quit();
+			} else {
+				display.myAnswers.Add(myAnswer);
 			}
 		}
 
