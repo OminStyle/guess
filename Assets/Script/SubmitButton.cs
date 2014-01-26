@@ -14,7 +14,7 @@ public class SubmitButton : MonoBehaviour {
 		//if (GUI.Button(new Rect(10, 10, 50, 50), btnTexture))
 		//	Debug.Log("Clicked the button with an image");
 		
-		if (GUI.Button(new Rect(540, 650, 50, 30), "Submit")) {
+		if (GUI.Button(new Rect(540, 400, 50, 30), "Submit")) {
 			Debug.Log("Clicked the button with text");
 
 		}
