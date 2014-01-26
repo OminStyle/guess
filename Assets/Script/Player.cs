@@ -4,7 +4,12 @@ using System.Collections;
 public class Player : MonoBehaviour {
 
 	private int playerID;
-	private ArrayList unJinxedAnswers;
+	private ArrayList myAnswers;
+
+	public Player(int id){
+		playerID = id;
+		myAnswers = new ArrayList ();
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +21,11 @@ public class Player : MonoBehaviour {
 	
 	}
 
+	void storeAnswer(string myCurrentAnswer){
+		myAnswers.Add (myCurrentAnswer);
+	}
+
 	bool alreadySaidIt(string s){
-		return unJinxedAnswers.Contains (s);
+		return myAnswers.Contains (s);
 	}
 }
